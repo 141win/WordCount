@@ -3,6 +3,7 @@
 #include <string.h>  
 #include <ctype.h>  
 
+//统计英文文本文件中字符个数
 int count_characters(const char* filename) {
     FILE* file = fopen(filename, "r");
     if (!file) {
@@ -19,6 +20,7 @@ int count_characters(const char* filename) {
     fclose(file);
     return count;
 }
+//统计英文文本文件中单词个数
 int count_words(const char* filename) {
     FILE* file;
     if (fopen_s(&file, filename, "r") != 0) {
@@ -40,7 +42,7 @@ int count_words(const char* filename) {
         }
     }
 
-    // If the last character was part of a word, count it as a word
+    //如果最后一个字符是一个单词的一个字母，将它当作一个单词计数
     if (in_word) {
         word_count++;
     }
@@ -48,7 +50,8 @@ int count_words(const char* filename) {
     fclose(file);
     return word_count;
 }
-
+//argc是输入参数个数，argv[]是输入的参数组成的列表
+//输入两个参数，但最后argc是三，因为系统会将程序名当作第一个参数传入argv中，那么argv中就是3个参数
 int main(int argc, char* argv[]) {
     if (argc != 3) {
         fprintf(stderr, "Usage: %s [-c|-w] [input_file_name]\n", argv[0]);
